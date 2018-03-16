@@ -1,11 +1,12 @@
 package org.nrg.xnat
 
-import org.nrg.xnat.charts.SubjectGender
+import org.nrg.xnat.charts.*
 
 class ChartRegistry {
 
     public static final List<Chart> CHARTS = [
-            new SubjectGender()
+            new SubjectGender(),
+            new SessionScanCountHistogram()
     ]
 
     static Chart byId(int id) {

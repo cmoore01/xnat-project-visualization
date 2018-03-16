@@ -1,0 +1,19 @@
+\centering
+\begin{tikzpicture}
+    \begin{axis}[
+        ymin=0,
+        xtick style={/pgfplots/major tick length=0},
+        ybar interval,
+        ytick pos=left,
+        xticklabel=\pgfmathprintnumber\tick--\pgfmathparse{\nexttick-1 + ifthenelse(\nexttick<$max$,0,1)}\pgfmathprintnumber\pgfmathresult,% some math trickery to get the displayed values to match the bins exactly (inclusively)
+        ylabel=Frequency,
+        xlabel={$xlabel$},
+        grid=none,
+        title={$title$}
+    ]
+        \addplot+[hist={bins=$bins$}] table[row sep=\\,y index=0] {
+            data\\
+            $data$
+        };
+    \end{axis}
+\end{tikzpicture}

@@ -1,0 +1,79 @@
+{
+  "name": "xnat-project-visualization",
+  "description": "Produces various visuals representing different components of an XNAT study (project).",
+  "version": "1.0",
+  "schema-version": "1.0",
+  "type": "docker",
+  "image": "greppy/xnat-project-visualization",
+  "override-entrypoint": true,
+  "command-line": "groovy VisualizeXnat.groovy -u $XNAT_USER -p $XNAT_PASS -s $XNAT_HOST -j #id# -c #charts# -o /output",
+  "working-directory": "/home",
+  "mounts": [
+    {
+      "name": "tex-out",
+      "writable": "true",
+      "path": "/output"
+    }
+  ],
+  "inputs": [
+    {
+      "name": "id",
+      "description": "Project ID extracted from wrapper inputs",
+      "type": "string",
+      "required": "true",
+      "user-settable": false
+    },
+    {
+      "name": "charts",
+      "description": "Comma-separated list of integers, representing the desired charts to generate.",
+      "type": "string",
+      "user-settable": true,
+      "required": true
+    }
+  ],
+  "outputs": [
+    {
+      "name": "tex",
+      "description": "The created TeX source files and PDFs",
+      "mount": "tex-out",
+      "required": "true"
+    }
+  ],
+  "xnat": [
+    {
+      "name": "xnat-project-visualization",
+      "description": "Produces various visuals representing different components of an XNAT study (project).",
+      "contexts": [
+        "xnat:projectData"
+      ],
+      "external-inputs": [
+        {
+          "name": "project",
+          "description": "The project to build stats from.",
+          "type": "Project",
+          "required": true,
+          "load-children": false
+        }
+      ],
+      "derived-inputs": [
+        {
+          "name": "project-id",
+          "description": "ID derived from project.",
+          "required": true,
+          "derived-from-wrapper-input": "project",
+          "derived-from-xnat-object-property": "id",
+          "provides-value-for-command-input": "id"
+        }
+      ],
+      "output-handlers": [
+        {
+          "name": "tex-resource",
+          "accepts-command-output": "tex",
+          "as-a-child-of-wrapper-input": "project",
+          "type": "Resource",
+          "label": "TeX"
+        }
+      ]
+    }
+  ]
+}

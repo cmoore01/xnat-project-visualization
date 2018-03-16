@@ -3,6 +3,7 @@ package org.nrg.xnat.charts
 import org.nrg.xnat.BarGraph
 import org.nrg.xnat.Chart
 import org.nrg.xnat.DataPoint
+import org.nrg.xnat.TexUtils
 import org.nrg.xnat.enums.Gender
 import org.nrg.xnat.pogo.Project
 
@@ -25,7 +26,7 @@ class SubjectGender extends Chart {
             final int count = project.getAllSubjects().findAll { it.gender == gender }.size()
             if (count > 0) dataPoints << new DataPoint<Integer>(color: color(gender), value: count, label: gender.capitalize())
         }
-        new BarGraph<Integer>(scale: 2.0, values: dataPoints, title: "Subject gender distribution for project ${project}").produceTeX()
+        new BarGraph<Integer>(scale: 2.0, values: dataPoints, title: "Subject gender distribution for project ${TexUtils.projectId(project)}").produceTeX()
     }
 
     String color(Gender gender) {
