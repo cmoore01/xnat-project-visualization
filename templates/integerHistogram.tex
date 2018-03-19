@@ -1,11 +1,13 @@
 \centering
-\begin{tikzpicture}
+\begin{tikzpicture}[scale=$scale$]
     \begin{axis}[
+        compat=1.4,
         ymin=0,
-        xtick style={/pgfplots/major tick length=0},
+        xticklabel style={rotate=$labelRotation$, font=$font$},
         ybar interval,
         ytick pos=left,
-        xticklabel=\pgfmathprintnumber\tick--\pgfmathparse{\nexttick-1 + ifthenelse(\nexttick<$max$,0,1)}\pgfmathprintnumber\pgfmathresult,% some math trickery to get the displayed values to match the bins exactly (inclusively)
+        xtick pos=left,
+        xticklabel=\pgfmathprintnumber\tick--\pgfmathparse{\nexttick - 1 + ifthenelse(\nexttick<$max$,0,1)}\pgfmathprintnumber\pgfmathresult,% some math trickery to get the displayed values to match the bins exactly (inclusively)
         ylabel=Frequency,
         xlabel={$xlabel$},
         grid=none,

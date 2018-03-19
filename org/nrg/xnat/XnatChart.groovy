@@ -5,7 +5,7 @@ import org.nrg.xnat.pogo.Project
 
 import java.nio.file.Paths
 
-abstract class Chart {
+abstract class XnatChart {
 
     abstract int chartId()
 

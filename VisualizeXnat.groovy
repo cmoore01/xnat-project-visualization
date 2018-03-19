@@ -1,5 +1,5 @@
 #!/usr/bin/env groovy
-import org.nrg.xnat.Chart
+import org.nrg.xnat.XnatChart
 import org.nrg.xnat.ChartRegistry
 import org.nrg.xnat.interfaces.XnatInterface
 import org.nrg.xnat.pogo.Project
@@ -39,7 +39,7 @@ final String chartsString = params.c as String
 final String output = params.o ?: '.'
 
 final String[] splitCharts = chartsString.split(',')
-final List<Chart> requestedCharts = splitCharts.collect { ChartRegistry.byId(Integer.parseInt(it)) }
+final List<XnatChart> requestedCharts = splitCharts.collect { ChartRegistry.byId(Integer.parseInt(it)) }
 final XnatInterface xnatInterface = XnatInterface.authenticate(url, user, pass)
 requestedCharts.any { it.requiresResources() } ? xnatInterface.enableResourceReading() : xnatInterface.disableResourceReading()
 final Project project = xnatInterface.readProject(projectString)

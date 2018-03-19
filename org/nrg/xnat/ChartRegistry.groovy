@@ -4,12 +4,13 @@ import org.nrg.xnat.charts.*
 
 class ChartRegistry {
 
-    public static final List<Chart> CHARTS = [
+    public static final List<XnatChart> CHARTS = [
             new SubjectGender(),
-            new SessionScanCountHistogram()
+            new SessionScanCountHistogram(),
+            new SubjectAge()
     ]
 
-    static Chart byId(int id) {
+    static XnatChart byId(int id) {
         CHARTS.find { it.chartId() == id }
     }
 
